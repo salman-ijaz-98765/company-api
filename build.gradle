@@ -39,15 +39,12 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
-}
-
 sonarqube {
     properties {
         property "sonar.projectKey", "afroze-project-management_company-api"
         property "sonar.organization", "afroze-project-management"
         property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.projectname","Company API"
     }
 }
 

@@ -41,7 +41,6 @@ class CompanyControllerTest {
     void getAll_returnsListOfCompanies() {
         List<CompanyDto> dtos = new ArrayList<>();
         CompanyDto dto = new CompanyDto();
-        dto.setId(1);
         dto.setName("company 1");
         dto.setTags("tag1,tag2");
         dtos.add(dto);
@@ -134,7 +133,6 @@ class CompanyControllerTest {
         model.setTags("tag1,tag2");
 
         Company existingCompany = new Company();
-        existingCompany.setId(1L);
         existingCompany.setName("company 1");
         existingCompany.setTags("tag1,tag2");
 

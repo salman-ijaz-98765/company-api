@@ -34,7 +34,6 @@ class CompanyServiceTest {
 
     private Company getCompany() {
         Company c1 = new Company();
-        c1.setId(1L);
         c1.setName("company a");
         c1.setTags("tag1,tag2");
         return c1;

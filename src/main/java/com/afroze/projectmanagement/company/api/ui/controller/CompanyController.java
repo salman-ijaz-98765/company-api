@@ -29,6 +29,7 @@ public class CompanyController {
 
     private final ModelMapper mapper;
 
+    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("EI_EXPOSE_REP2")
     @Autowired
     public CompanyController(CompanyService companyService, ModelMapper mapper) {
         this.companyService = companyService;

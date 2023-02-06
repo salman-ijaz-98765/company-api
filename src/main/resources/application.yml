@@ -1,0 +1,58 @@
+server:
+  port: ${COMPANY_API_PORT:8019}
+
+spring:
+  application:
+    name: pm-company-ws
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://afrozeprojectmanagement.us.auth0.com/.well-known/jwks.json
+          issuer-uri: https://afrozeprojectmanagement.us.auth0.com/
+
+  datasource:
+    url: jdbc:postgresql://localhost:${COMPANY_DB_PORT:5432}/${COMPANY_DB_NAME:project_management_company}
+    username: ${COMPANY_DB_USER:developer}
+    password: ${COMPANY_DB_PASSWORD:dev123}
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${DISCOVERY_SERVER_HOSTNAME:localhost}:${DISCOVERY_SERVER_PORT:8761}/eureka
+  instance:
+    hostname: ${DISCOVERY_SERVER_HOSTNAME:localhost}
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+management:
+  endpoint:
+    health:
+      show-details: always
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: beans,health,httptrace,info,metrics,circuitbreakers,circuitbreakerevents
+
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          client: WARN
+        security: TRACE
+
+info:
+  application:
+    name: ${spring.application.name}

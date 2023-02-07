@@ -14,5 +14,6 @@ public class ProjectServiceClientFallback implements ProjectServiceClient {
 
     @Override
     public void deleteProjectsByCompanyId(long companyId) {
+        // returns void because obviously
     }
 }

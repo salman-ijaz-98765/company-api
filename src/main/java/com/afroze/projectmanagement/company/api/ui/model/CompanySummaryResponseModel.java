@@ -1,7 +1,5 @@
 package com.afroze.projectmanagement.company.api.ui.model;
 
-import java.util.List;
-
 public class CompanySummaryResponseModel {
     private Long id;
 

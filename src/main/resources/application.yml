@@ -31,9 +31,11 @@ eureka:
   client:
     service-url:
       defaultZone: http://${DISCOVERY_SERVER_HOSTNAME:localhost}:${DISCOVERY_SERVER_PORT:8761}/eureka
+    registry-fetch-interval-seconds: 5
   instance:
     hostname: ${DISCOVERY_SERVER_HOSTNAME:localhost}
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    lease-expiration-duration-in-seconds: 10
 
 management:
   endpoint:

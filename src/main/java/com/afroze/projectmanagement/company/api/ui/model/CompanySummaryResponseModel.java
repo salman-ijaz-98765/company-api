@@ -2,14 +2,13 @@ package com.afroze.projectmanagement.company.api.ui.model;
 
 import java.util.List;
 
-public class CompanyResponseModel {
+public class CompanySummaryResponseModel {
     private Long id;
 
     private String name;
 
     private String tags;
 
-    private List<ProjectSummaryResponseModel> projects;
 
     public Long getId() {
         return id;
@@ -33,13 +32,5 @@ public class CompanyResponseModel {
 
     public void setTags(String tags) {
         this.tags = tags;
-    }
-
-    public List<ProjectSummaryResponseModel> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(List<ProjectSummaryResponseModel> projects) {
-        this.projects = projects;
     }
 }

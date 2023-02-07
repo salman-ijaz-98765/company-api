@@ -7,6 +7,7 @@ import com.afroze.projectmanagement.company.api.exception.CompanyNotFoundExcepti
 import com.afroze.projectmanagement.company.api.service.CompanyService;
 import com.afroze.projectmanagement.company.api.ui.model.CompanyRequestModel;
 import com.afroze.projectmanagement.company.api.ui.model.CompanyResponseModel;
+import com.afroze.projectmanagement.company.api.ui.model.CompanySummaryResponseModel;
 import com.afroze.projectmanagement.company.api.ui.model.HttpResponseModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,7 +50,7 @@ class CompanyControllerTest {
 
         var sut = new CompanyController(companyService, mapper);
 
-        ResponseEntity<HttpResponseModel<List<CompanyResponseModel>>> result = sut.getAll();
+        ResponseEntity<HttpResponseModel<List<CompanySummaryResponseModel>>> result = sut.getAll();
 
         assertNotNull(result);
         assertNotNull(result.getBody());
@@ -67,7 +68,7 @@ class CompanyControllerTest {
 
         var sut = new CompanyController(companyService, mapper);
 
-        ResponseEntity<HttpResponseModel<List<CompanyResponseModel>>> result = sut.getAll();
+        ResponseEntity<HttpResponseModel<List<CompanySummaryResponseModel>>> result = sut.getAll();
 
         assertNotNull(result);
         assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());
@@ -76,7 +77,7 @@ class CompanyControllerTest {
     @Test
     void getById_returnsCompany() throws CompanyNotFoundException {
         CompanyDto dto = new CompanyDto();
-        dto.setId(1);
+        dto.setId(1L);
         dto.setName("company 1");
         dto.setTags("tag1,tag2");
 
@@ -111,7 +112,7 @@ class CompanyControllerTest {
         model.setTags("tag1,tag2");
 
         CompanyDto createdCompany = new CompanyDto();
-        createdCompany.setId(1);
+        createdCompany.setId(1L);
         createdCompany.setName("company 1");
         createdCompany.setTags("tag1,tag2");
 
@@ -154,7 +155,7 @@ class CompanyControllerTest {
         model.setTags("tag1,tag2");
 
         CompanyDto updatedCompany = new CompanyDto();
-        updatedCompany.setId(1);
+        updatedCompany.setId(1L);
         updatedCompany.setName("company 1");
         updatedCompany.setTags("tag1,tag2");
 

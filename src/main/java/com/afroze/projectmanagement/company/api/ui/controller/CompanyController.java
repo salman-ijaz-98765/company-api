@@ -7,6 +7,7 @@ import com.afroze.projectmanagement.company.api.security.Permissions;
 import com.afroze.projectmanagement.company.api.service.CompanyService;
 import com.afroze.projectmanagement.company.api.ui.model.CompanyRequestModel;
 import com.afroze.projectmanagement.company.api.ui.model.CompanyResponseModel;
+import com.afroze.projectmanagement.company.api.ui.model.CompanySummaryResponseModel;
 import com.afroze.projectmanagement.company.api.ui.model.HttpResponseModel;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -40,13 +41,13 @@ public class CompanyController {
     @GetMapping()
     @PreAuthorize("hasAuthority('" + Permissions.READ_COMPANY + "')")
     @Operation(summary = "Get Companies", security = @SecurityRequirement(name="bearerAuth"))
-    public ResponseEntity<HttpResponseModel<List<CompanyResponseModel>>> getAll() {
+    public ResponseEntity<HttpResponseModel<List<CompanySummaryResponseModel>>> getAll() {
         List<CompanyDto> companies = companyService.getAll();
         if(companies.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        List<CompanyResponseModel> response = mapper.map(companies, new TypeToken<List<CompanyResponseModel>>(){}.getType());
+        List<CompanySummaryResponseModel> response = mapper.map(companies, new TypeToken<List<CompanySummaryResponseModel>>(){}.getType());
         return ResponseEntity.status(HttpStatus.OK).body(HttpResponseModel.success(response));
     }
 

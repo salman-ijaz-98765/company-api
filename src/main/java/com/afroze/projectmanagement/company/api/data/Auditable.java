@@ -39,4 +39,44 @@ public abstract class Auditable<U, K extends Serializable> {
     @Column(name = "modified_by", nullable = false)
     @LastModifiedBy
     private U modifiedBy;
+
+    public K getId() {
+        return id;
+    }
+
+    public void setId(K id) {
+        this.id = id;
+    }
+
+    public Date getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public U getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(U createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Date getModifiedOn() {
+        return modifiedOn;
+    }
+
+    public void setModifiedOn(Date modifiedOn) {
+        this.modifiedOn = modifiedOn;
+    }
+
+    public U getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(U modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
 }

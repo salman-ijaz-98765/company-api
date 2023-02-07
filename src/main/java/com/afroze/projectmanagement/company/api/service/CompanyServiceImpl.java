@@ -1,16 +1,20 @@
 package com.afroze.projectmanagement.company.api.service;
 
+import com.afroze.projectmanagement.company.api.data.ProjectServiceClient;
 import com.afroze.projectmanagement.company.api.domain.Company;
 import com.afroze.projectmanagement.company.api.dto.CompanyDto;
 import com.afroze.projectmanagement.company.api.exception.CompanyAlreadyExistsException;
 import com.afroze.projectmanagement.company.api.exception.CompanyNotFoundException;
 import com.afroze.projectmanagement.company.api.repository.CompanyRepository;
+import com.afroze.projectmanagement.company.api.ui.model.HttpResponseModel;
+import com.afroze.projectmanagement.company.api.ui.model.ProjectSummaryResponseModel;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,10 +25,13 @@ public class CompanyServiceImpl implements CompanyService {
 
     private final ModelMapper mapper;
 
+    private final ProjectServiceClient projectServiceClient;
+
     @Autowired
-    public CompanyServiceImpl(CompanyRepository companyRepository, ModelMapper mapper) {
+    public CompanyServiceImpl(CompanyRepository companyRepository, ModelMapper mapper, ProjectServiceClient projectServiceClient) {
         this.companyRepository = companyRepository;
         this.mapper = mapper;
+        this.projectServiceClient = projectServiceClient;
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
@@ -41,7 +48,17 @@ public class CompanyServiceImpl implements CompanyService {
         if(company == null) {
             throw new CompanyNotFoundException(companyId);
         }
-        return mapper.map(company, CompanyDto.class);
+
+        CompanyDto companyDto = mapper.map(company, CompanyDto.class);
+        HttpResponseModel<List<ProjectSummaryResponseModel>> projects = projectServiceClient.getProjectsByCompanyId(companyId);
+
+        if (projects.isError()) {
+            companyDto.setProjects(new ArrayList<>());
+        } else {
+            companyDto.setProjects(projects.getData());
+        }
+
+        return companyDto;
     }
 
     @Override
@@ -78,5 +95,7 @@ public class CompanyServiceImpl implements CompanyService {
     public void delete(long companyId) {
         Optional<Company> companyToDelete = companyRepository.findById(companyId);
         companyToDelete.ifPresent(companyRepository::delete);
+
+        projectServiceClient.deleteProjectsByCompanyId(companyId);
     }
 }

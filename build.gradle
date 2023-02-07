@@ -32,6 +32,9 @@ dependencies {
     implementation 'com.tngtech.archunit:archunit-junit5-api:1.0.0'
     implementation 'com.tngtech.archunit:archunit-junit5-engine:1.0.0'
     implementation 'com.github.spotbugs:spotbugs-annotations:4.0.1'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.0.1'
+    implementation 'io.github.resilience4j:resilience4j-spring-boot2:2.0.2'
+    implementation 'org.springframework.boot:spring-boot-starter-aop:3.0.2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 }

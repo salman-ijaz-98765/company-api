@@ -1,17 +1,23 @@
 package com.afroze.projectmanagement.company.api.dto;
 
+import com.afroze.projectmanagement.company.api.ui.model.ProjectSummaryResponseModel;
+
+import java.util.List;
+
 public class CompanyDto {
-    private long id;
+    private Long id;
 
     private String name;
 
     private String tags;
 
-    public long getId() {
+    private List<ProjectSummaryResponseModel> projects;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -29,5 +35,13 @@ public class CompanyDto {
 
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    public List<ProjectSummaryResponseModel> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<ProjectSummaryResponseModel> projects) {
+        this.projects = projects;
     }
 }

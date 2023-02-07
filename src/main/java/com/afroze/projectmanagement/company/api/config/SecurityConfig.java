@@ -16,7 +16,7 @@ public class SecurityConfig {
     @Order(1)
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .csrf().disable() // Safe as we're using JWTs
                 .cors().disable()
                 .authorizeHttpRequests(a -> a.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll())
                 .authorizeHttpRequests(a -> a.requestMatchers("/actuator").permitAll())

@@ -8,6 +8,7 @@ import com.afroze.projectmanagement.company.api.exception.CompanyNotFoundExcepti
 import com.afroze.projectmanagement.company.api.repository.CompanyRepository;
 import com.afroze.projectmanagement.company.api.ui.model.HttpResponseModel;
 import com.afroze.projectmanagement.company.api.ui.model.ProjectSummaryResponseModel;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.modelmapper.convention.MatchingStrategies;
@@ -27,6 +28,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     private final ProjectServiceClient projectServiceClient;
 
+    @SuppressFBWarnings("EI_EXPOSE_REP2")
     @Autowired
     public CompanyServiceImpl(CompanyRepository companyRepository, ModelMapper mapper, ProjectServiceClient projectServiceClient) {
         this.companyRepository = companyRepository;

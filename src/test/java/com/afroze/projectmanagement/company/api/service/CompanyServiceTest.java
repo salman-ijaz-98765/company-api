@@ -1,5 +1,7 @@
 package com.afroze.projectmanagement.company.api.service;
 
+import com.afroze.projectmanagement.company.api.data.ProjectServiceClient;
+import com.afroze.projectmanagement.company.api.data.ProjectServiceClientFallback;
 import com.afroze.projectmanagement.company.api.domain.Company;
 import com.afroze.projectmanagement.company.api.dto.CompanyDto;
 import com.afroze.projectmanagement.company.api.exception.CompanyAlreadyExistsException;
@@ -23,6 +25,9 @@ class CompanyServiceTest {
 
     @Spy
     ModelMapper mapper = new ModelMapper();
+
+    @Spy
+    ProjectServiceClient projectServiceClient = new ProjectServiceClientFallback();
 
     @InjectMocks
     private CompanyServiceImpl companyService;

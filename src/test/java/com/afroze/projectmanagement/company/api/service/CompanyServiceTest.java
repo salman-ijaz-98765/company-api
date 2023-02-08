@@ -1,12 +1,13 @@
 package com.afroze.projectmanagement.company.api.service;
 
 import com.afroze.projectmanagement.company.api.data.ProjectServiceClient;
-import com.afroze.projectmanagement.company.api.data.ProjectServiceClientFallback;
 import com.afroze.projectmanagement.company.api.domain.Company;
 import com.afroze.projectmanagement.company.api.dto.CompanyDto;
 import com.afroze.projectmanagement.company.api.exception.CompanyAlreadyExistsException;
 import com.afroze.projectmanagement.company.api.exception.CompanyNotFoundException;
 import com.afroze.projectmanagement.company.api.repository.CompanyRepository;
+import com.afroze.projectmanagement.company.api.ui.model.HttpResponseModel;
+import com.afroze.projectmanagement.company.api.ui.model.ProjectSummaryResponseModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
@@ -19,22 +20,23 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CompanyServiceTest {
-
+    AutoCloseable openMocks;
     @Mock
     private CompanyRepository companyRepository;
 
+    @SuppressWarnings("unused")
     @Spy
     ModelMapper mapper = new ModelMapper();
 
-    @Spy
-    ProjectServiceClient projectServiceClient = new ProjectServiceClientFallback();
+    @Mock
+    ProjectServiceClient projectServiceClient;
 
     @InjectMocks
     private CompanyServiceImpl companyService;
 
     @BeforeEach
     void init() {
-        MockitoAnnotations.openMocks(this);
+        openMocks = MockitoAnnotations.openMocks(this);
     }
 
     private Company getCompany() {
@@ -64,7 +66,9 @@ class CompanyServiceTest {
 
     @Test
     void getById_returnsCompany() throws CompanyNotFoundException {
+        List<ProjectSummaryResponseModel> projects = new ArrayList<>();
         Mockito.when(companyRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(getCompany()));
+        Mockito.when(projectServiceClient.getProjectsByCompanyId(Mockito.anyLong())).thenReturn(HttpResponseModel.success(projects));
         CompanyDto result = companyService.getById(1L);
         assertEquals("company a", result.getName());
         assertEquals("tag1,tag2", result.getTags());

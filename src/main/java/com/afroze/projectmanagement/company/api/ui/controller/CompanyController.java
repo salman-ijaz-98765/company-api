@@ -15,6 +15,8 @@ import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.modelmapper.convention.MatchingStrategies;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,18 +32,24 @@ public class CompanyController {
 
     private final ModelMapper mapper;
 
+    private final Logger logger;
+
     @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("EI_EXPOSE_REP2")
     @Autowired
     public CompanyController(CompanyService companyService, ModelMapper mapper) {
         this.companyService = companyService;
         this.mapper = mapper;
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        this.logger = LoggerFactory.getLogger(CompanyController.class);
     }
 
     @GetMapping()
     @PreAuthorize("hasAuthority('" + Permissions.READ_COMPANY + "')")
     @Operation(summary = "Get Companies", security = @SecurityRequirement(name="bearerAuth"))
     public ResponseEntity<HttpResponseModel<List<CompanySummaryResponseModel>>> getAll() {
+        logger.info("Getting all companies");
+
         List<CompanyDto> companies = companyService.getAll();
         if(companies.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

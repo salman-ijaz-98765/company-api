@@ -30,5 +30,5 @@ build/
 
 ### VS Code ###
 .vscode/
-/out/production/resources/
+/out/
 /.gradle/

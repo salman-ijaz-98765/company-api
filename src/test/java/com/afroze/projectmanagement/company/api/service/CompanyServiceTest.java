@@ -75,6 +75,16 @@ class CompanyServiceTest {
     }
 
     @Test
+    void getById_whenProjectError_returnsCompany() throws CompanyNotFoundException {
+        Mockito.when(companyRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(getCompany()));
+        Mockito.when(projectServiceClient.getProjectsByCompanyId(Mockito.anyLong())).thenReturn(HttpResponseModel.failure(null, "error"));
+        CompanyDto result = companyService.getById(1L);
+        assertEquals("company a", result.getName());
+        assertEquals("tag1,tag2", result.getTags());
+        assertEquals(0, result.getProjects().size());
+    }
+
+    @Test
     void getById_throws() {
         Mockito.when(companyRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
         assertThrows(CompanyNotFoundException.class, () -> companyService.getById(2L));

@@ -1,0 +1,104 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "company-api",
+      "image": "public.ecr.aws/j4b6b6c4/company-api:latest",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "name": "company-api-8031-tcp",
+          "containerPort": 8031,
+          "hostPort": 8031,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "DISCOVERY_SERVER_ZONE",
+          "value": "http://discovery-server:8761/eureka"
+        },
+        {
+          "name": "JWK_SET_URI",
+          "value": "https://afrozeprojectmanagement.us.auth0.com/.well-known/jwks.json"
+        },
+        {
+          "name": "ISSUER_URI",
+          "value": "https://afrozeprojectmanagement.us.auth0.com/"
+        },
+        {
+          "name": "COMPANY_DB_SOURCE",
+          "value": "jdbc:postgresql://project-management-company.ckefkzjjodcj.us-east-2.rds.amazonaws.com:5432/project_management_company"
+        },
+        {
+          "name": "COMPANY_API_PORT",
+          "value": "8031"
+        },
+        {
+          "name": "COMPANY_DB_USERNAME",
+          "value": "developer"
+        },
+        {
+          "name": "COMPANY_DB_PASSWORD",
+          "value": "dev12345"
+        }
+      ],
+      "environmentFiles": [],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-create-group": "true",
+          "awslogs-group": "/ecs/company-api-2023-02-13",
+          "awslogs-region": "us-east-2",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ],
+  "family": "company-api-2023-02-13",
+  "executionRoleArn": "ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "revision": 1,
+  "volumes": [],
+  "status": "ACTIVE",
+  "requiresAttributes": [
+    {
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+    },
+    {
+      "name": "ecs.capability.execution-role-awslogs"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+    },
+    {
+      "name": "ecs.capability.task-eni"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
+    }
+  ],
+  "placementConstraints": [],
+  "compatibilities": [
+    "EC2",
+    "FARGATE"
+  ],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "512",
+  "memory": "2048",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "registeredAt": "2023-02-13T12:19:21.444Z",
+  "registeredBy": "arn:aws:iam::071571530772:root",
+  "tags": []
+}

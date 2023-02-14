@@ -1,6 +1,7 @@
 package com.afroze.projectmanagement.company.api;
 
 import feign.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -16,6 +17,12 @@ import java.net.UnknownHostException;
 @SpringBootApplication
 @EnableFeignClients
 public class CompanyApiApplication {
+	private final org.slf4j.Logger logger;
+
+	public CompanyApiApplication() {
+		logger = LoggerFactory.getLogger(CompanyApiApplication.class);
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(CompanyApiApplication.class, args);
 	}
@@ -38,7 +45,7 @@ public class CompanyApiApplication {
 		try {
 			ip = InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e) {
-			e.printStackTrace();
+			logger.info(e.getLocalizedMessage());
 		}
 
 		config.setIpAddress(ip);

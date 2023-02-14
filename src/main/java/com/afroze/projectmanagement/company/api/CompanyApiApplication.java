@@ -4,6 +4,7 @@ import feign.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.commons.util.InetUtils;
 import org.springframework.cloud.netflix.eureka.EurekaInstanceConfigBean;
@@ -16,6 +17,7 @@ import java.net.UnknownHostException;
 
 @SpringBootApplication
 @EnableFeignClients
+@EnableDiscoveryClient
 public class CompanyApiApplication {
 	private final org.slf4j.Logger logger;
 

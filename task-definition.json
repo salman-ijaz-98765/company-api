@@ -42,6 +42,14 @@
         {
           "name": "COMPANY_DB_PASSWORD",
           "value": "dev12345"
+        },
+        {
+          "name": "EUREKA_INSTANCE_NON_SECURE_PORT_ENABLED",
+          "value": "true"
+        },
+        {
+          "name": "EUREKA_INSTANCE_NON_SECURE_PORT",
+          "value": "8031"
         }
       ],
       "environmentFiles": [],
